@@ -31,8 +31,6 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            'API_ENTRY': JSON.stringify('http://v2-api.furnituremaker.vn'),
-            'FILE_HOST': JSON.stringify('http://v2-api.furnituremaker.vn'),
             'process.env': {
                 'NODE_ENV': JSON.stringify('production')
             }
