@@ -1,0 +1,14 @@
+{
+    "name": "easy-spa-host",
+    "version": "0.0.1",
+    "scripts": {
+        "start": "node app"
+    },
+    "author": {
+        "name": "kenkz447"
+    },
+    "dependencies": {
+        "express": "^4.14.0",
+        "serve-favicon": "^2.3.0"
+    }
+}

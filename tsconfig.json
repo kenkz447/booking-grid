@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/scripts/*"]
+        },
+        "plugins": [
+            { "name": "tslint-language-service"}
+        ],
+        "allowJs": false,
+        "jsx": "react",
+        "lib": [
+            "dom",
+            "es2017",
+            "esnext.asynciterable"
+        ],
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "noImplicitAny": false,
+        "removeComments": true,
+        "sourceMap": true,
+        "target": "es2016",
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": true,
+        "types": [
+            "webpack-env"
+        ]
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
