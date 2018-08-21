@@ -1,0 +1,35 @@
+.timeline-grid-row {
+    position: relative;
+    white-space: nowrap;
+    &-header {
+        > :first-child {
+            z-index: 8!important;
+
+        }
+        > div:not(:first-child) {
+            z-index: 5!important;
+            position: relative;
+        }
+    }
+    &-dropfield {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        transition: all .2s ease;
+        &.is-over {
+            background: rgba($color: red, $alpha: .2);
+            ;
+            &.self-over {
+                background: rgba($color: gray, $alpha: .2);
+                ;
+            }
+            &.can-drop {
+                background: rgba($color: green, $alpha: .2);
+            }
+        }
+    }
+}

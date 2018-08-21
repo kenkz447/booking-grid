@@ -1,0 +1,30 @@
+.timeline-grid-cell {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    border-bottom: 1px solid #e3e3e3;
+    border-left: 1px solid #e3e3e3;
+    vertical-align: top;
+    &:first-child {
+        justify-content: flex-start;
+        padding-left: 15px;
+        position: relative;
+        left: 0;
+        top: 0;
+        z-index: 7;
+        box-shadow: 0 3px 7px 2px rgba(0, 0, 0, 0.09);
+        justify-content: space-between;
+    }
+    &.disabled {
+        background: rgba(74, 144, 226, 0.25);
+        border-color: #fff;
+    }
+    &.OT {
+        background: rgba(60, 255, 226, 0.25);
+    }
+    &.facility:first-child {
+        position: relative;
+        padding-left: 90px;
+    }
+}

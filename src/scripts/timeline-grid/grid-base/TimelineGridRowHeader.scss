@@ -1,0 +1,13 @@
+.timeline-grid-row-header {
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.09);
+    >.timeline-grid-cell {
+        background: aliceblue;
+        color: #000;
+    }
+    &-sort-list {
+        margin-bottom: 0;
+        &-item {
+            line-height: 30px;
+        }
+    }
+}

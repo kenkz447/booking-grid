@@ -1,0 +1,22 @@
+.timeline-grid-line-of-time {
+    position: absolute;
+    width: 1px;
+    border-left: 1px dashed #FF6464;
+    height: 100%;
+    z-index: 6;
+    &::before {
+        content: attr(data-time);
+        height: 20px;
+        width: 60px;
+        background: #FF6464;
+        position: absolute;
+        border-radius: 40px;
+        transform: translateX(-50%) rotate(90deg);
+        color: #fff;
+        font-size: 12px;
+        top: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

@@ -1,0 +1,98 @@
+.timeline-grid-card {
+    display: inline-block;
+    position: absolute;
+    padding-left: 10px;
+    padding-right: 20px;
+    margin-right: 1px;
+    cursor: pointer;
+    transition: all .2s ease;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    top: 2px;
+    top: 1px;
+    &::before {
+        content: " ";
+        height: 100%;
+        width: 6px;
+        background-color: rgba($color: #000000, $alpha: .1);
+        position: absolute;
+        left: 0;
+    }
+    &::after {
+        position: absolute;
+        right: 6px;
+        top: 6px;
+        font-family: FontAwesome;
+    }
+    &.status {
+        &-TEMP {
+            &::after {
+                content: "";
+            }
+        }
+        &-CONFIRMED {
+            &::after {
+                content: "\f00c";
+            }
+        }
+        &-CHECKIN {
+            &::after {
+                content: "\f063";
+            }
+        }
+        &-CHECKOUT {
+            background: rgba($color: #000000, $alpha: .05)!important;
+            &::after {
+                content: "\f062";
+                opacity: .5
+            }
+        }
+    }
+    &.disabled {
+        opacity: .6;
+        cursor: unset;
+    }
+    &.canClick {
+        cursor: pointer;
+    }
+    &.hide {
+        opacity: .1;
+    }
+    &.dragging {
+        opacity: .6;
+    }
+    &-popover {
+        &-appointment,
+        &-service {
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+            border-bottom: 1px dashed #e3e3e3;
+        }
+    }
+    &-content {
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        &-label {
+            font-size: 11px;
+            color: #000;
+            line-height: 1.3;
+            cursor: inherit;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        &-details {
+            font-size: 10px;
+            color: #3B3B3B;
+            line-height: 1;
+            cursor: inherit;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    }
+}

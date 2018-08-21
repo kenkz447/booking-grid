@@ -1,0 +1,45 @@
+.timeline-grid-day {
+    width: 100%;
+    overflow: auto;
+    &-cell {
+        &-header {
+            &-name {
+                display: block;
+                color: black;
+                line-height: 1;
+                font-size: 12px;
+            }
+            &-time {
+                font-size: 11px;
+                color: lightslategrey;
+                line-height: 1;
+            }
+        }
+        &-border-style-dotted {
+            border-left-style: dotted!important;
+        }
+    }
+    &-container {
+        &-facility-areas {
+            position: absolute;
+            z-index: 7;
+            border-right: 1px solid #e3e3e3;
+            &-item {
+                background: #fff;
+                border-bottom: 1px solid #e3e3e3;
+                overflow: hidden;
+                width: 50px;
+                
+                &-label {
+                    position: relative;
+                    height: 50px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    transform: rotate(-90deg);
+                    transform-origin: 0 0 0;
+                }
+            }
+        }
+    }
+}
