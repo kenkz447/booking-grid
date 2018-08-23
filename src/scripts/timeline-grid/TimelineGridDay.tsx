@@ -5,6 +5,8 @@ import { autobind } from 'core-decorators';
 import * as moment from 'moment';
 import { extendMoment } from 'moment-range';
 import * as React from 'react';
+import { DragDropContextProvider } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import { Facility, RowData } from '@/Types';
 import { Label } from '@/ui-elements';
@@ -30,27 +32,30 @@ export class TimelineGridDay extends TimelineGridBase {
         );
 
         return (
-            <GridBase
-                className={mainGridClassName}
-            >
-                <div className="timeline-grid-day-container">
-                    <TimelineGridRowHeader
-                        ref={element => this.timeRow = element}
-                        spaBranchOpenHour={this.props.openTime.hours}
-                        spaBranchOpenMinute={this.props.openTime.minutes}
-                        spaBranchCloseTimeHour={this.props.closeTime.hours}
-                        spaBranchCloseTimeMinute={this.props.closeTime.minutes}
-                    />
-                    {this.props.rowsData.map(this.renderRow)}
-                    <div
-                        ref={(element) => this.areaContainer = element}
-                        className="timeline-grid-day-container-facility-areas"
-                        style={{ top: CELL_HEIGHT }}
-                    >
-                        {this.renderAreas()}
+            <DragDropContextProvider backend={HTML5Backend}>
+
+                <GridBase
+                    className={mainGridClassName}
+                >
+                    <div className="timeline-grid-day-container">
+                        <TimelineGridRowHeader
+                            ref={element => this.timeRow = element}
+                            spaBranchOpenHour={this.props.openTime.hours}
+                            spaBranchOpenMinute={this.props.openTime.minutes}
+                            spaBranchCloseTimeHour={this.props.closeTime.hours}
+                            spaBranchCloseTimeMinute={this.props.closeTime.minutes}
+                        />
+                        {this.props.rowsData.map(this.renderRow)}
+                        <div
+                            ref={(element) => this.areaContainer = element}
+                            className="timeline-grid-day-container-facility-areas"
+                            style={{ top: CELL_HEIGHT }}
+                        >
+                            {this.renderAreas()}
+                        </div>
                     </div>
-                </div>
-            </GridBase>
+                </GridBase>
+            </DragDropContextProvider>
         );
     }
 
