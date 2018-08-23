@@ -16,7 +16,7 @@
         content: " ";
         height: 100%;
         width: 6px;
-        background-color: rgba($color: #000000, $alpha: .1);
+        // background-color: rgba(#000000, .1);
         position: absolute;
         left: 0;
     }
@@ -43,7 +43,7 @@
             }
         }
         &-CHECKOUT {
-            background: rgba($color: #000000, $alpha: .05)!important;
+            // background: rgba(#000000, .05)!important;
             &::after {
                 content: "\f062";
                 opacity: .5

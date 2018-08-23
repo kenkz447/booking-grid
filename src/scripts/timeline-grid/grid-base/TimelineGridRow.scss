@@ -21,16 +21,16 @@
         display: flex;
         align-items: center;
         transition: all .2s ease;
-        &.is-over {
-            background: rgba($color: red, $alpha: .2);
-            ;
-            &.self-over {
-                background: rgba($color: gray, $alpha: .2);
-                ;
-            }
-            &.can-drop {
-                background: rgba($color: green, $alpha: .2);
-            }
-        }
+        // &.is-over {
+        //     background: rgba(red, .2);
+        //     ;
+        //     &.self-over {
+        //         background: rgba(gray, .2);
+        //         ;
+        //     }
+        //     &.can-drop {
+        //         background: rgba(green, .2);
+        //     }
+        // }
     }
 }
