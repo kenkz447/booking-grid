@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { extendMoment } from 'moment-range';
 import * as React from 'react';
 
-import { Facility } from '@/Types';
+import { Facility, RowData } from '@/Types';
 import { Label } from '@/ui-elements';
 
 import { CELL_HEIGHT, CELL_WIDTH_HEADER } from './configs';
@@ -15,7 +15,7 @@ import {
     TimelineGridRow,
     TimelineGridRowHeader
 } from './grid-base';
-import { RowData, TimelineGridBase } from './TimelineGridBase';
+import { TimelineGridBase } from './TimelineGridBase';
 
 const groupby = require('lodash/groupBy');
 
@@ -25,13 +25,10 @@ export class TimelineGridDay extends TimelineGridBase {
     render() {
         const { GridBase } = this;
 
-        const isSiderShown = this.isSiderShown();
-
         const mainGridClassName = classNames(
-            'timeline-grid-day',
-            { 'sider-shown': isSiderShown }
+            'timeline-grid-day'
         );
-        
+
         const dataType = this.props.rowsData[0] && this.props.rowsData[0].dataType;
         return (
             <GridBase
@@ -96,14 +93,6 @@ export class TimelineGridDay extends TimelineGridBase {
         const cellsOfTime = this.getCellOfTime();
         const appointmentContents = this.getAppointmentContent();
 
-        const staffAppmointmentContents = appointmentContents.filter(o => {
-            if (data.dataType === 'facility') {
-                return o.facility && o.facility.id === data.id;
-            }
-
-            return o.staff && o.staff.id === data.id;
-        });
-
         const workFromTime = moment(data.fromDaytime);
         const workToTime = moment(data.toDaytime);
 
@@ -113,7 +102,6 @@ export class TimelineGridDay extends TimelineGridBase {
         const cellEmements = cellsOfTime.map((time, i) => {
             const fromMinutes = time.from.getMinutes();
             const className = classNames(
-                data.dataType,
                 { 'timeline-grid-day-cell-border-style-dotted': fromMinutes !== 0 }
             );
             const cellTimeRange = extendedMoment.range(time.from, time.to);
@@ -142,7 +130,7 @@ export class TimelineGridDay extends TimelineGridBase {
             <TimelineGridRow
                 key={columnIndex}
                 dropAble={true}
-                appmointmentContents={staffAppmointmentContents}
+                appmointmentContents={appointmentContents}
                 rowData={data}
                 cellProps={cellsOfTime}
                 openTime={this.props.openTime}
@@ -155,13 +143,9 @@ export class TimelineGridDay extends TimelineGridBase {
                 >
                     <div className="timeline-grid-day-cell-header">
                         <span className="timeline-grid-day-cell-header-name">{data.name}</span>
-                        {
-                            (data.dataType === 'staff' && data.group !== 'CASUAL') && (
-                                <span className="timeline-grid-day-cell-header-time">
-                                    {workFromTime.format('HH:mm')}-{workToTime.format('HH:mm')}
-                                </span>
-                            )
-                        }
+                        <span className="timeline-grid-day-cell-header-time">
+                            {workFromTime.format('HH:mm')}-{workToTime.format('HH:mm')}
+                        </span>
                     </div>
                 </TimelineGridCell>
                 {cellEmements}

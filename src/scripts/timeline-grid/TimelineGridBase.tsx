@@ -2,7 +2,6 @@ import './TimelineGridBase.scss';
 
 import { autobind } from 'core-decorators';
 import * as React from 'react';
-import { getUrlParam } from 'scripts/core';
 
 import { Appointment, AppointmentContent, DaytimeInfo, RowData } from '@/Types';
 import { Layout } from '@/ui-elements';
@@ -119,15 +118,6 @@ export class TimelineGridBase extends React.Component<TimeLineGridBaseProps> {
         }
 
         this.rowHeaders.push(element);
-    }
-
-    isSiderShown() {
-        const appointmentId = getUrlParam('appointmentId');
-        if (!appointmentId) {
-            return false;
-        }
-
-        return true;
     }
 
     getCellOfTime(date?: Date) {
