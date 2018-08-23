@@ -3,7 +3,13 @@ import './TimelineGridBase.scss';
 import { autobind } from 'core-decorators';
 import * as React from 'react';
 
-import { Appointment, AppointmentContent, DaytimeInfo, RowData } from '@/Types';
+import { 
+    Appointment, 
+    AppointmentContent, 
+    DaytimeInfo, 
+    RowData 
+} from '@/Types';
+
 import { Layout } from '@/ui-elements';
 
 import { MINUTES_PER_CELL } from './configs';
@@ -17,7 +23,6 @@ import {
 
 export interface TimeLineGridBaseProps {
     readonly rowsData: Array<RowData>;
-    readonly selectors: Array<{ readonly id?: number, readonly name?: string }>;
     readonly appointments: Array<Appointment>;
     readonly minutePerCell: number;
     readonly openTime: DaytimeInfo;
@@ -26,7 +31,6 @@ export interface TimeLineGridBaseProps {
 
 export class TimelineGridBase extends React.Component<TimeLineGridBaseProps> {
     static readonly defaultProps: Partial<TimeLineGridBaseProps> = {
-        selectors: [],
         rowsData: [],
         appointments: [],
         openTime: {

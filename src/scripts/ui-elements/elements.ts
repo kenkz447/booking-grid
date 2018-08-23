@@ -19,6 +19,7 @@ export const Layout = styled.div`
     position: relative;
     flex-direction: column;
     flex: auto;
+    height: 100%;
 `;
 
 export const Text = styled.span`

@@ -29,7 +29,6 @@ export class TimelineGridDay extends TimelineGridBase {
             'timeline-grid-day'
         );
 
-        const dataType = this.props.rowsData[0] && this.props.rowsData[0].dataType;
         return (
             <GridBase
                 className={mainGridClassName}
@@ -41,18 +40,15 @@ export class TimelineGridDay extends TimelineGridBase {
                         spaBranchOpenMinute={this.props.openTime.minutes}
                         spaBranchCloseTimeHour={this.props.closeTime.hours}
                         spaBranchCloseTimeMinute={this.props.closeTime.minutes}
-                        dataType={dataType}
                     />
                     {this.props.rowsData.map(this.renderRow)}
-                    {dataType === 'facility' && (
-                        <div
-                            ref={(element) => this.areaContainer = element}
-                            className="timeline-grid-day-container-facility-areas"
-                            style={{ top: CELL_HEIGHT }}
-                        >
-                            {this.renderAreas()}
-                        </div>
-                    )}
+                    <div
+                        ref={(element) => this.areaContainer = element}
+                        className="timeline-grid-day-container-facility-areas"
+                        style={{ top: CELL_HEIGHT }}
+                    >
+                        {this.renderAreas()}
+                    </div>
                 </div>
             </GridBase>
         );
@@ -96,8 +92,11 @@ export class TimelineGridDay extends TimelineGridBase {
         const workFromTime = moment(data.fromDaytime);
         const workToTime = moment(data.toDaytime);
 
-        const wokingTimeRange = extendedMoment.range(data.fromDaytime, data.toDaytime);
-        const OTTimeRange = data.isOT && extendedMoment.range(data.OTStartedDayTime, data.OTEndedDayTime);
+        const wokingTimeRange = extendedMoment.range(workFromTime, workToTime);
+        const OTTimeRange = data.isOT && extendedMoment.range(
+            moment(data.OTStartedDayTime),
+            moment(data.OTEndedDayTime)
+        );
 
         const cellEmements = cellsOfTime.map((time, i) => {
             const fromMinutes = time.from.getMinutes();
@@ -137,7 +136,6 @@ export class TimelineGridDay extends TimelineGridBase {
                 closeTime={this.props.closeTime}
             >
                 <TimelineGridCell
-                    className={data.dataType}
                     width={CELL_WIDTH_HEADER}
                     ref={this.mapElementToRowHeaders}
                 >

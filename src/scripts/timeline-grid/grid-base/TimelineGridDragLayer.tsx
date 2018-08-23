@@ -1,12 +1,15 @@
 
-import './TimelineGridDragLayer.scss'
-import * as React from 'react'
-import { DragLayer } from 'react-dnd'
-import { TimelineGridCard, TimelineGridCardProps } from './TimelineGridCard'
+import './TimelineGridDragLayer.scss';
+
+import * as React from 'react';
+import { DragLayer, XYCoord } from 'react-dnd';
+import { TimelineGridCard, TimelineGridCardProps } from './TimelineGridCard';
 
 interface TimelineGridDragLayerProps {
-    item?: TimelineGridCardProps
-    isDragging?: boolean
+    readonly item?: TimelineGridCardProps;
+    readonly isDragging?: boolean;
+    readonly initialOffset?: XYCoord;
+    readonly currentOffset?: XYCoord;
 }
 
 @DragLayer(monitor => ({
@@ -18,12 +21,13 @@ interface TimelineGridDragLayerProps {
 }))
 export class TimelineGridDragLayer extends React.Component<TimelineGridDragLayerProps> {
     render() {
-        const { item, isDragging } = this.props
+        const { item, isDragging } = this.props;
 
-        if (!isDragging)
-            return null
+        if (!isDragging) {
+            return null;
+        }
 
-            return (
+        return (
             <div className="timeline-grid-drag-layer">
                 <div style={this.getItemStyles(this.props)}>
                     <TimelineGridCard
@@ -34,23 +38,25 @@ export class TimelineGridDragLayer extends React.Component<TimelineGridDragLayer
                     />
                 </div>
             </div>
-        )
+        );
     }
 
-    getItemStyles(props) {
-        const { initialOffset, currentOffset } = props
-        if (!initialOffset || !currentOffset)
+    getItemStyles(props: TimelineGridDragLayerProps) {
+        const { initialOffset, currentOffset } = props;
+
+        if (!initialOffset || !currentOffset) {
             return {
                 display: 'none'
-            }
-        const baseTop = document.getElementById('baseGrid')
+            };
+        }
+        const baseTop = document.getElementById('baseGrid');
 
-        const y = currentOffset.y - 54 - 60 + baseTop.scrollTop
-        const transform = `translateY(${y}px)`
-        
+        const y = currentOffset.y - 54 - 60 + baseTop.scrollTop;
+        const transform = `translateY(${y}px)`;
+
         return {
             transform: transform,
             WebkitTransform: transform
-        }
+        };
     }
 }

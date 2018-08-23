@@ -1,9 +1,9 @@
 import './TimelineGridCell.scss';
 
+import * as classNames from 'classnames';
 import * as React from 'react';
 
 import { CELL_HEIGHT, CELL_WIDTH } from '../configs';
-import * as classNames from 'classnames';
 
 export interface TimelineGridCellProps {
     readonly width?: number;
@@ -29,7 +29,7 @@ export class TimelineGridCell extends
         const className = classNames(
             'timeline-grid-cell',
             this.props.className,
-            this.props.from != undefined && `minute-${this.props.from.getMinutes()}`,
+            this.props.from !== undefined && `minute-${this.props.from.getMinutes()}`,
             { disabled: this.props.isValid === false },
             { OT: this.props.isOT === true }
         );

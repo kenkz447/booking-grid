@@ -4,13 +4,17 @@
         "port": 3000
     },
     "dependencies": {
+        "@types/react-dnd-html5-backend": "^3.0.2",
         "autobind-decorator": "^2.1.0",
         "classnames": "2.2.6",
         "core-decorators": "^0.20.0",
+        "dnd-core": "^4.0.5",
         "lodash": "^4.17.10",
         "moment": "^2.22.2",
         "moment-range": "^4.0.1",
         "react": "^16.2.0",
+        "react-dnd": "^5.0.0",
+        "react-dnd-html5-backend": "^5.0.1",
         "react-dom": "^16.2.0",
         "styled-components": "^3.3.3"
     },

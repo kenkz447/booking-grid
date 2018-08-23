@@ -3,6 +3,7 @@
     overflow: auto;
     &-cell {
         &-header {
+            margin-left: 15px;
             &-name {
                 display: block;
                 color: black;
@@ -38,6 +39,7 @@
                     align-items: center;
                     transform: rotate(-90deg);
                     transform-origin: 0 0 0;
+                    top: 100%;
                 }
             }
         }

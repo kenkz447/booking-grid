@@ -56,12 +56,13 @@ export class TimelineGridRowHeader extends React.Component<TimelineGridRowHeader
             cellElements.push(
                 <TimelineGridCell
                     key={index}
-                    width={cellWidth}
+                    width={cellWidth + 3}
                 >
                     {cellLabel}
-                </TimelineGridCell>);
+                </TimelineGridCell>
+            );
         }
-        
+
         return (
             <TimelineGridRow
                 className="timeline-grid-row-header"

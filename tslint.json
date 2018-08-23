@@ -125,7 +125,6 @@
         "no-default-export": true,
         // tslint-immutable
         "readonly-keyword": true,
-        "no-array-mutation": true,
         "no-method-signature": true
     },
     "exclude":[
