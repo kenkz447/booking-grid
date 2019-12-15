@@ -10,15 +10,11 @@ interface LabelProps extends
 
 }
 
-export const Label: React.ComponentType<LabelProps> = styled.label`
+export const Label = styled.label`
     color: inherit;
 `;
 
 export const Layout = styled.div`
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    flex: auto;
     height: 100%;
 `;
 

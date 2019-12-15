@@ -5,11 +5,11 @@ import { autobind } from 'core-decorators';
 import * as moment from 'moment';
 import { extendMoment } from 'moment-range';
 import * as React from 'react';
-import { DragDropContextProvider } from 'react-dnd';
+import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
+import { Label } from '@/timeline-grid/ui-elements';
 import { Facility, RowData } from '@/Types';
-import { Label } from '@/ui-elements';
 
 import { CELL_HEIGHT, CELL_WIDTH_HEADER } from './configs';
 import {
@@ -32,7 +32,7 @@ export class TimelineGridDay extends TimelineGridBase {
         );
 
         return (
-            <DragDropContextProvider backend={HTML5Backend}>
+            <DndProvider backend={HTML5Backend}>
 
                 <GridBase
                     className={mainGridClassName}
@@ -44,18 +44,19 @@ export class TimelineGridDay extends TimelineGridBase {
                             spaBranchOpenMinute={this.props.openTime.minutes}
                             spaBranchCloseTimeHour={this.props.closeTime.hours}
                             spaBranchCloseTimeMinute={this.props.closeTime.minutes}
+                            minutesPerCell={this.props.minutePerCell}
                         />
                         {this.props.rowsData.map(this.renderRow)}
                         <div
                             ref={(element) => this.areaContainer = element}
                             className="timeline-grid-day-container-facility-areas"
-                            style={{ top: CELL_HEIGHT }}
+                            style={{ top: CELL_HEIGHT + 2 }}
                         >
                             {this.renderAreas()}
                         </div>
                     </div>
                 </GridBase>
-            </DragDropContextProvider>
+            </DndProvider>
         );
     }
 
@@ -77,7 +78,6 @@ export class TimelineGridDay extends TimelineGridBase {
                         <Label
                             style={{ width: heigt }}
                             className="timeline-grid-day-container-facility-areas-item-label"
-                            size="small"
                         >
                             {areaKey}
                         </Label>
@@ -92,7 +92,7 @@ export class TimelineGridDay extends TimelineGridBase {
     @autobind
     renderRow(data: RowData, columnIndex: number) {
         const cellsOfTime = this.getCellOfTime();
-        const appointmentContents = this.getAppointmentContent();
+        const appointmentContents = this.getAppointmentContent(data.id);
 
         const workFromTime = moment(data.fromDaytime);
         const workToTime = moment(data.toDaytime);
@@ -139,6 +139,7 @@ export class TimelineGridDay extends TimelineGridBase {
                 cellProps={cellsOfTime}
                 openTime={this.props.openTime}
                 closeTime={this.props.closeTime}
+                minutesPerCell={this.props.minutePerCell}
             >
                 <TimelineGridCell
                     width={CELL_WIDTH_HEADER}

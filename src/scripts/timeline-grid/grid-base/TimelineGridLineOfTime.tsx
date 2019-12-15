@@ -1,18 +1,15 @@
 import './TimelineGridLineOfTime.scss';
 
-import * as React from 'react';
-import * as moment from 'moment';
 import { autobind } from 'core-decorators';
+import * as moment from 'moment';
+import * as React from 'react';
 
-import {
-    CELL_WIDTH,
-    MINUTES_PER_CELL,
-    CELL_WIDTH_HEADER
-} from '../configs';
+import { CELL_WIDTH, CELL_WIDTH_HEADER } from '../configs';
 
 interface TimelineGridLineOfTimeProps {
     readonly spaBranchOpenHours: number;
     readonly spaBranchOpenMinutes: number;
+    readonly minutesPerCell: number;
 }
 
 const baseTop = 0;
@@ -70,7 +67,9 @@ export class TimelineGridLineOfTime extends React.Component<TimelineGridLineOfTi
 
     @autobind
     changeTimeLinePosition() {
-        const fixedPerMinute = (CELL_WIDTH / MINUTES_PER_CELL);
+        const { minutesPerCell } = this.props;
+
+        const fixedPerMinute = (CELL_WIDTH / minutesPerCell);
 
         const currentDateTime = new Date();
         const currentHours = currentDateTime.getHours();

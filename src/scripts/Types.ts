@@ -1,6 +1,6 @@
 export interface Appointment {
     readonly appointmentContents: AppointmentContent[];
-    readonly appointmentStatus: 'CHECKOUT' | 'CANCEL';
+    readonly appointmentStatus: 'WAITING' | 'CHECKIN' | 'CHECKOUT' | 'CANCEL';
 }
 
 export interface AppointmentContent {
@@ -10,6 +10,7 @@ export interface AppointmentContent {
     readonly serviceTime: number;
     readonly serviceName: string;
     readonly appointmentStatus?: Appointment['appointmentStatus'];
+    readonly rowId: number;
 }
 
 export interface Facility {

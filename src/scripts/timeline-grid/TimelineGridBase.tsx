@@ -3,16 +3,9 @@ import './TimelineGridBase.scss';
 import { autobind } from 'core-decorators';
 import * as React from 'react';
 
-import { 
-    Appointment, 
-    AppointmentContent, 
-    DaytimeInfo, 
-    RowData 
-} from '@/Types';
+import { Layout } from '@/timeline-grid/ui-elements';
+import { Appointment, AppointmentContent, DaytimeInfo, RowData } from '@/Types';
 
-import { Layout } from '@/ui-elements';
-
-import { MINUTES_PER_CELL } from './configs';
 import {
     TimelineGridCell,
     TimelineGridCellProps,
@@ -60,19 +53,21 @@ export class TimelineGridBase extends React.Component<TimeLineGridBaseProps> {
     // tslint:disable-next-line:readonly-keyword
     containerOffsetX = 0;
 
-    getAppointmentContent() {
+    getAppointmentContent(rowId: number) {
         let appointmentContents: Array<AppointmentContent> = [];
 
         for (const appointment of this.props.appointments) {
             appointmentContents = appointmentContents.concat(appointment.appointmentContents);
         }
 
-        return appointmentContents;
+        return appointmentContents.filter(o => o.rowId === rowId);
     }
 
     @autobind
     // tslint:disable-next-line:typedef
     GridBase(props) {
+        const { minutePerCell } = this.props;
+
         return (
             <Layout>
                 <div
@@ -88,6 +83,7 @@ export class TimelineGridBase extends React.Component<TimeLineGridBaseProps> {
                         ref={element => this.lineOfTime = element}
                         spaBranchOpenHours={this.props.openTime.hours}
                         spaBranchOpenMinutes={this.props.openTime.minutes}
+                        minutesPerCell={minutePerCell}
                     />
                     {props.children}
                     <TimelineGridDragLayer />
@@ -125,10 +121,12 @@ export class TimelineGridBase extends React.Component<TimeLineGridBaseProps> {
     }
 
     getCellOfTime(date?: Date) {
+        const { minutePerCell } = this.props;
+
         const startTimeMinute = (this.props.openTime.hours * 60 + this.props.openTime.minutes);
         const endTimeMinute = (this.props.closeTime.hours * 60 + this.props.closeTime.minutes);
         const spaBranchTotalOpenTimeInMinutes = endTimeMinute - startTimeMinute;
-        const totalCell = spaBranchTotalOpenTimeInMinutes / MINUTES_PER_CELL;
+        const totalCell = spaBranchTotalOpenTimeInMinutes / minutePerCell;
         const cellProps: Array<TimelineGridCellProps> = [];
 
         const currentSearchParams = new URLSearchParams(location.search);
@@ -140,10 +138,10 @@ export class TimelineGridBase extends React.Component<TimeLineGridBaseProps> {
         for (let i = 0; i < totalCell; i++) {
             const cellStartTime = new Date(fromDateStr);
             cellStartTime.setHours(this.props.openTime.hours);
-            cellStartTime.setMinutes(i * MINUTES_PER_CELL, 1);
+            cellStartTime.setMinutes(i * minutePerCell, 1);
 
             const cellEndTime = new Date(cellStartTime);
-            cellEndTime.setMinutes(cellStartTime.getMinutes() + MINUTES_PER_CELL, 0);
+            cellEndTime.setMinutes(cellStartTime.getMinutes() + minutePerCell, 0);
 
             cellProps.push({
                 from: cellStartTime,

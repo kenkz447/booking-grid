@@ -2,12 +2,12 @@ import './TimelineGridCard.scss';
 
 import * as classNames from 'classnames';
 import { autobind } from 'core-decorators';
-import { DragDropMonitor } from 'dnd-core';
 import * as React from 'react';
 import {
     ConnectDragSource,
     DragSource,
     DragSourceConnector,
+    DragSourceMonitor,
     DragSourceSpec
 } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
@@ -34,16 +34,12 @@ interface DropResult {
 
 const boxSource: DragSourceSpec<TimelineGridCardProps, {}> = {
     beginDrag: (props) => props,
-    endDrag(
-        props: TimelineGridCardProps,
-        monitor: DragDropMonitor,
-        // tslint:disable-next-line:no-any
-        component: any) {
+    endDrag(props, monitor, component) {
         // ...
     }
 };
 
-function dragCollect(connect: DragSourceConnector, monitor: DragDropMonitor) {
+function dragCollect(connect: DragSourceConnector, monitor: DragSourceMonitor) {
     return {
         connectDragSource: connect.dragSource(),
         connectDragPreview: connect.dragPreview(),
@@ -124,4 +120,4 @@ export class TimelineGridCard extends React.Component<DropableTimelineGridCardPr
 }
 
 export const DragableTimelineGridCard =
-    DragSource('grid-row', boxSource, dragCollect)(TimelineGridCard) as typeof TimelineGridCard;
+    DragSource('grid-row', boxSource, dragCollect)(TimelineGridCard) as any as typeof TimelineGridCard;

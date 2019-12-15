@@ -8,7 +8,6 @@
     vertical-align: top;
     &:first-child {
         justify-content: flex-start;
-        padding-left: 50px;
         position: relative;
         left: 0;
         top: 0;
@@ -26,5 +25,8 @@
     &.facility:first-child {
         position: relative;
         padding-left: 90px;
+    }
+    .timeline-grid-day-cell-header {
+        margin-left: 65px;
     }
 }

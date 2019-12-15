@@ -49,10 +49,7 @@ module.exports = {
                     silent: true
                 }
             }, {
-                loader: "sass-loader",
-                options: {
-                    includePaths: [path.resolve(process.cwd(), 'src')]
-                }
+                loader: "sass-loader"
             }]
         }, {
             test: /(\.less)$/,

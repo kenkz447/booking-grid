@@ -4,22 +4,12 @@ import * as classNames from 'classnames';
 import { autobind } from 'core-decorators';
 import * as React from 'react';
 
-import { AppointmentContent, RowData, DaytimeInfo } from '@/Types';
+import { AppointmentContent, DaytimeInfo, RowData } from '@/Types';
 
-import {
-    CELL_HEIGHT,
-    CELL_WIDTH,
-    CELL_WIDTH_HEADER,
-    MINUTES_PER_CELL
-} from '../configs';
-
-import {
-    DragableTimelineGridCard,
-    TimelineGridCard
-} from './TimelineGridCard';
-
-import { TimelineGridCell, TimelineGridCellProps } from './TimelineGridCell';
+import { CELL_HEIGHT, CELL_WIDTH, CELL_WIDTH_HEADER } from '../configs';
 import { DropAbleTimelineGridRow } from './timeline-grid-row';
+import { DragableTimelineGridCard, TimelineGridCard } from './TimelineGridCard';
+import { TimelineGridCell, TimelineGridCellProps } from './TimelineGridCell';
 
 interface TimelineGridRowProps {
     readonly appmointmentContents?: Array<AppointmentContent>;
@@ -32,13 +22,15 @@ interface TimelineGridRowProps {
     readonly cellProps?: Array<TimelineGridCellProps>;
     readonly openTime?: DaytimeInfo;
     readonly closeTime?: DaytimeInfo;
+    readonly minutesPerCell: number;
 }
 
 export class TimelineGridRow extends React.Component<TimelineGridRowProps> {
     static readonly defaultProps: TimelineGridRowProps = {
         items: [],
         cellProps: [],
-        appmointmentContents: []
+        appmointmentContents: [],
+        minutesPerCell: 15
     };
 
     // tslint:disable-next-line:readonly-keyword
@@ -54,13 +46,14 @@ export class TimelineGridRow extends React.Component<TimelineGridRowProps> {
             >
                 {this.props.children}
                 {
-                    this.props.dropAble &&
-                    <DropAbleTimelineGridRow
-                        rowData={this.props.rowData}
-                        appmointmentContents={this.props.appmointmentContents}
-                    >
-                        {this.props.appmointmentContents.map(this.renderGridCard)}
-                    </DropAbleTimelineGridRow>
+                    this.props.dropAble && (
+                        <DropAbleTimelineGridRow
+                            rowData={this.props.rowData}
+                            appmointmentContents={this.props.appmointmentContents}
+                        >
+                            {this.props.appmointmentContents.map(this.renderGridCard)}
+                        </DropAbleTimelineGridRow>
+                    )
                 }
             </div>
         );
@@ -68,7 +61,9 @@ export class TimelineGridRow extends React.Component<TimelineGridRowProps> {
 
     @autobind
     renderGridCard(appointmentContent: AppointmentContent) {
-        const fixedPerMinute = (CELL_WIDTH / MINUTES_PER_CELL);
+        const { minutesPerCell } = this.props;
+
+        const fixedPerMinute = (CELL_WIDTH / minutesPerCell);
         const minuteOfCurrentHours = (appointmentContent.appointmentHour - this.props.openTime.hours) * 60;
         const startMinutes =
             minuteOfCurrentHours + appointmentContent.appointmentMinute;

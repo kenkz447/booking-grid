@@ -3,6 +3,7 @@ import './TimelineGridDragLayer.scss';
 
 import * as React from 'react';
 import { DragLayer, XYCoord } from 'react-dnd';
+
 import { TimelineGridCard, TimelineGridCardProps } from './TimelineGridCard';
 
 interface TimelineGridDragLayerProps {
@@ -12,14 +13,15 @@ interface TimelineGridDragLayerProps {
     readonly currentOffset?: XYCoord;
 }
 
-@DragLayer(monitor => ({
+const dragLayer = DragLayer(monitor => ({
     item: monitor.getItem(),
     itemType: monitor.getItemType(),
     initialOffset: monitor.getInitialSourceClientOffset(),
     currentOffset: monitor.getSourceClientOffset(),
     isDragging: monitor.isDragging(),
-}))
-export class TimelineGridDragLayer extends React.Component<TimelineGridDragLayerProps> {
+}));
+    
+export const TimelineGridDragLayer = dragLayer(class extends React.Component<TimelineGridDragLayerProps> {
     render() {
         const { item, isDragging } = this.props;
 
@@ -49,9 +51,11 @@ export class TimelineGridDragLayer extends React.Component<TimelineGridDragLayer
                 display: 'none'
             };
         }
+
         const baseTop = document.getElementById('baseGrid');
 
-        const y = currentOffset.y - 54 - 60 + baseTop.scrollTop;
+        // const y = currentOffset.y - 54 - 60 + baseTop.scrollTop;
+        const y = currentOffset.y;
         const transform = `translateY(${y}px)`;
 
         return {
@@ -59,4 +63,4 @@ export class TimelineGridDragLayer extends React.Component<TimelineGridDragLayer
             WebkitTransform: transform
         };
     }
-}
+});

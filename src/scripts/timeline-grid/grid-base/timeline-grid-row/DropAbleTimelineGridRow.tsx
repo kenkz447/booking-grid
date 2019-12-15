@@ -5,22 +5,10 @@ import { DateRange, extendMoment } from 'moment-range';
 import * as React from 'react';
 import { DropTarget, DropTargetMonitor } from 'react-dnd';
 
-import { AppointmentContent, RowData, DaytimeInfo } from '@/Types';
+import { AppointmentContent, DaytimeInfo, RowData } from '@/Types';
 
-import {
-    CELL_HEIGHT,
-    CELL_WIDTH,
-    CELL_WIDTH_HEADER,
-    MINUTES_PER_CELL
-} from '@/timeline-grid/configs';
-
-import {
-    DragableTimelineGridCard,
-    TimelineGridCard,
-    TimelineGridCardProps
-} from '../TimelineGridCard';
-
-import { TimelineGridCell, TimelineGridCellProps } from '../TimelineGridCell';
+import { TimelineGridCardProps } from '../TimelineGridCard';
+import { TimelineGridCellProps } from '../TimelineGridCell';
 
 const moment = extendMoment(Moment);
 
@@ -46,7 +34,6 @@ interface DropAbleTimelineRowProps extends TimelineGridRowProps {
 const boxTarget = {
     drop(
         props: TimelineGridCardProps,
-        monitor: DropTargetMonitor,
         component: DropAbleTimelineGridRow
     ) {
         return {
@@ -56,12 +43,12 @@ const boxTarget = {
     }
 };
 
-@DropTarget('grid-row', boxTarget, (connect, monitor) => ({
+@(DropTarget('grid-row', boxTarget as any, (connect, monitor) => ({
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),
     canDrop: monitor.canDrop(),
     curentItem: monitor.getItem()
-}))
+})) as any)
 export class DropAbleTimelineGridRow extends React.Component<DropAbleTimelineRowProps> {
     // tslint:disable-next-line:readonly-keyword
     canDrop = true;
